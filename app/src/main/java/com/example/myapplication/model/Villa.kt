@@ -10,3 +10,17 @@ data class Villa (
     val kamar_tersedia: String
 )
 
+@Serializable
+data class AllVillaRespose(
+    val status: Boolean,
+    val message: String,
+    val data: List<Villa>
+)
+
+@Serializable
+data class VillaDetailResponse(
+    val status: Boolean,
+    val message: String,
+    val data: Villa
+)
+
