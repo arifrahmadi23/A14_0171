@@ -36,7 +36,7 @@ object DestinasiEntryVilla : DestinasiNavigasi {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EntryMhsScreen(
+fun EntryVillaScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InsertViewModelVilla = viewModel(factory = PenyediaViewModel.Factory)
