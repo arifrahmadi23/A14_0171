@@ -29,7 +29,7 @@ data class InsertUiState(
 )
 
 data class InsertUiEvent(
-    val id_villa: Int,
+    val id_villa: Int = 0,
     val nama_villa: String = "",
     val alamat: String = "",
     val kamar_tersedia: String = ""
