@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.view.pelanggan.DestinasiHomePelanggan
+import com.example.myapplication.ui.view.pelanggan.HomeScreenPelanggan
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
@@ -25,9 +27,17 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         composable(DestinasiHomeVilla.route){
             HomeScreen(
                 navigateToItemEntry = {navController.navigate((DestinasiEntryVilla.route))},
+                navigateToHomePelanggan = { navController.navigate((DestinasiHomePelanggan.route)) },
                 onDetailClick = { idVilla ->
                     navController.navigate("${DestinasiDetailVilla.route}/$idVilla")
                 }
+            )
+        }
+        composable(DestinasiHomePelanggan.route){
+            HomeScreenPelanggan(
+                navigateBack = { navController.popBackStack() },
+                navigateToItemEntry = {}
+
             )
         }
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
@@ -33,9 +34,14 @@ object PenyediaViewModel{
                 villaRepository = aplikasiVilla().container.villaRepository
             )
         }
+
+        initializer {
+            HomeViewModelPelanggan(aplikasiVilla().container.pelangganRepository)
+        }
     }
 }
 
 
 fun CreationExtras.aplikasiVilla(): VillaApplication =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as VillaApplication)
+
