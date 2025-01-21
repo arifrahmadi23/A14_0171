@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.viewmodelvilla
+package com.example.myapplication.ui.viewmodel.villa
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

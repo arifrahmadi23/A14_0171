@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.viewvilla
+package com.example.myapplication.ui.view.villa
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,8 +38,8 @@ import com.example.myapplication.R
 import com.example.myapplication.customwidget.CostumeTopAppBar
 import com.example.myapplication.model.Villa
 import com.example.myapplication.navigation.DestinasiNavigasi
-import com.example.myapplication.ui.viewmodelvilla.HomeViewModelVilla
-import com.example.myapplication.ui.viewmodelvilla.HomeVillaUiState
+import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
+import com.example.myapplication.ui.viewmodel.villa.HomeVillaUiState
 
 object DestinasiHomeVilla: DestinasiNavigasi {
     override val route = "home"
@@ -82,7 +80,9 @@ fun HomeScreen(
         HomeStatus(
             homeVillaUiState = viewModel.villaUiState,
             retryAction = {viewModel.getVilla()}, modifier = Modifier.padding(innerPadding),
-            onDetailClick = {}
+            onDetailClick =  { idVilla ->
+                onDetailClick(idVilla)
+            }
         )
     }
 }
@@ -145,25 +145,24 @@ fun OnError(retryAction:() -> Unit, modifier: Modifier = Modifier){
 fun VillaLayout(
     villa: List<Villa>,
     modifier: Modifier = Modifier,
-    onDetailClick:(Villa) -> Unit,
-){
-    LazyColumn (
+    onDetailClick: (Villa) -> Unit,
+) {
+    LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
-    ){
-        items(villa){
-                villa ->
+    ) {
+        items(villa) { villa ->
             VillaCard(
                 villa = villa,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDetailClick(villa) },
-
+                    .clickable { onDetailClick(villa) }
             )
         }
     }
 }
+
 
 @Composable
 fun VillaCard(
@@ -193,7 +192,7 @@ fun VillaCard(
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = villa.kamar_tersedia + " Kamar Tesedia",
+                text = villa.kamar_tersedia.toString() + " Kamar Tesedia",
                 style = MaterialTheme.typography.titleMedium
             )
         }

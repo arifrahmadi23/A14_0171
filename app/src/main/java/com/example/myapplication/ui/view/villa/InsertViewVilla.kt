@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.viewvilla
+package com.example.myapplication.ui.view.villa
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,9 +23,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.PenyediaViewModel
 import com.example.myapplication.customwidget.CostumeTopAppBar
 import com.example.myapplication.navigation.DestinasiNavigasi
-import com.example.myapplication.ui.viewmodelvilla.InsertUiEvent
-import com.example.myapplication.ui.viewmodelvilla.InsertUiState
-import com.example.myapplication.ui.viewmodelvilla.InsertViewModelVilla
+import com.example.myapplication.ui.viewmodel.villa.InsertUiEvent
+import com.example.myapplication.ui.viewmodel.villa.InsertUiState
+import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
 import kotlinx.coroutines.launch
 
 

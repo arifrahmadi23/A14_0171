@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.viewvilla
+package com.example.myapplication.ui.view.villa
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,22 +26,19 @@ import com.example.myapplication.PenyediaViewModel
 import com.example.myapplication.customwidget.CostumeTopAppBar
 import com.example.myapplication.model.Villa
 import com.example.myapplication.navigation.DestinasiNavigasi
-import com.example.myapplication.ui.viewmodelvilla.DetailUiStateVilla
-import com.example.myapplication.ui.viewmodelvilla.DetailViewModelVilla
+import com.example.myapplication.ui.viewmodel.villa.DetailUiStateVilla
+import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 
 object DestinasiDetailVilla : DestinasiNavigasi {
     override val route = "detail"
     override val titleRes = "Detail Villa"
-    const val ID_Villa = "id_villa"
-    val routeWithArg = "$route/{$ID_Villa}"
+    const val IdVilla = "idvilla"
+    val routeWithArg = "$route/{$IdVilla}"
 }
-
-
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(
+fun DetailScreenVilla(
     modifier: Modifier = Modifier,
     viewModel: DetailViewModelVilla = viewModel(factory = PenyediaViewModel.Factory),
     navigateBack: () -> Unit,
@@ -91,8 +88,6 @@ fun DetailScreen(
     }
 }
 
-
-
 @Composable
 fun ItemDetailVilla(
     modifier: Modifier = Modifier,
@@ -115,11 +110,9 @@ fun ItemDetailVilla(
             Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMhs(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia)
             Spacer(modifier = Modifier.padding(4.dp))
-
         }
     }
 }
-
 
 @Composable
 fun ComponentDetailMhs(

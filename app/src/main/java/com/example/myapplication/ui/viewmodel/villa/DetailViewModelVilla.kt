@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.viewmodelvilla
+package com.example.myapplication.ui.viewmodel.villa
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
 import com.example.myapplication.model.Villa
 import com.example.myapplication.repository.VillaRepository
-import com.example.myapplication.ui.viewvilla.DestinasiDetailVilla
+import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -24,13 +24,13 @@ class DetailViewModelVilla(
     private val villa:VillaRepository): ViewModel(){
     var villaUiState : DetailUiStateVilla by mutableStateOf(DetailUiStateVilla.Loading)
         private set
-    private val _id_villa: String = checkNotNull(savedStateHandle[DestinasiDetailVilla.ID_Villa])
+    private val _id_villa: String = checkNotNull(savedStateHandle[DestinasiDetailVilla.IdVilla])
 
     init {
-        getMhsByNim()
+        getVillabyId()
     }
 
-    fun getMhsByNim(){
+    fun getVillabyId(){
         viewModelScope.launch {
             villaUiState = DetailUiStateVilla.Loading
             villaUiState = try {
@@ -40,13 +40,11 @@ class DetailViewModelVilla(
             } catch (e: HttpException) {
                 DetailUiStateVilla.Error
             }
-
         }
     }
 }
 
-
-fun Villa.toDetailUiEvent(): InsertUiEvent{
+fun Villa.toDetailUiEvent(): InsertUiEvent {
     return InsertUiEvent(
         id_villa = id_villa,
         nama_villa = nama_villa,
