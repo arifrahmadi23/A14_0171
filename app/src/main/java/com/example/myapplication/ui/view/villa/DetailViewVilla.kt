@@ -1,11 +1,13 @@
 package com.example.myapplication.ui.view.villa
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -13,6 +15,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -80,9 +83,14 @@ fun DetailScreenVilla(
                     Text("Error loading data", modifier = Modifier.align(Alignment.Start))
                 }
                 is DetailUiStateVilla.Success -> {
-                    // Tampilkan data mahasiswa jika berhasil
-                    ItemDetailVilla(villa = state.villa)
+                    ItemDetailVilla(
+                        villa = state.villa,
+                        onDeleteClick = { villa -> viewModel.deleteVilla(villa.id_villa) },
+                        navigateBack = navigateBack// Handle klik delete
+                    )
+
                 }
+
             }
         }
     }
@@ -91,25 +99,38 @@ fun DetailScreenVilla(
 @Composable
 fun ItemDetailVilla(
     modifier: Modifier = Modifier,
-    villa: Villa
+    villa: Villa,
+    onDeleteClick: (Villa) -> Unit, // Tambahkan properti onDeleteClick
+    navigateBack: () -> Unit
 ) {
-    // Menggunakan Card untuk menampilkan data mahasiswa
     Card(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-
-        ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = villa.nama_villa,
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { onDeleteClick(villa)
+                    navigateBack()}) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Hapus Villa",
+                        tint = MaterialTheme.colorScheme.error // Warna merah untuk delete
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "ID Villa", isinya = villa.id_villa.toString())
-            Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMhs(judul = "Nama Villa", isinya = villa.nama_villa)
-            Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMhs(judul = "Alamat", isinya = villa.alamat)
-            Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMhs(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia)
-            Spacer(modifier = Modifier.padding(4.dp))
         }
     }
 }

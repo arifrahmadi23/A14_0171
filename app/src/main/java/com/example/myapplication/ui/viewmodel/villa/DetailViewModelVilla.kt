@@ -42,6 +42,18 @@ class DetailViewModelVilla(
             }
         }
     }
+    fun deleteVilla(id_Villa: Int){
+        viewModelScope.launch {
+            try {
+                villa.deleteVilla(id_Villa.toString())
+
+            }catch (e:IOException){
+                HomeVillaUiState.Error
+            }catch (e:HttpException){
+                HomeVillaUiState.Error
+            }
+        }
+    }
 }
 
 fun Villa.toDetailUiEvent(): InsertUiEvent {
