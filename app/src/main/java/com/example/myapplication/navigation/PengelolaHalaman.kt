@@ -9,9 +9,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
+import com.example.myapplication.ui.view.villa.DestinasiUpdateVilla
 import com.example.myapplication.ui.view.villa.DetailScreenVilla
 import com.example.myapplication.ui.view.villa.EntryVillaScreen
 import com.example.myapplication.ui.view.villa.HomeScreen
+import com.example.myapplication.ui.view.villa.UpdateScreenVilla
 
 @Composable
 fun PengelolaHalaman(navController: NavHostController = rememberNavController()) {
@@ -45,7 +47,18 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 navigateBack = { navController.popBackStack() },
                 onEditClick = {
                     // Navigasi menuju halaman update
-//                    navController.navigate("${DestinasiUpdate.route}/$IdVilla")
+                    navController.navigate("${DestinasiUpdateVilla.route}/$IdVilla")
+                }
+            )
+        }
+
+        composable(DestinasiUpdateVilla.routeWithArg) { backStackEntry ->
+            val IdVilla = backStackEntry.arguments?.getString(DestinasiUpdateVilla.IdVilla) ?: ""
+            UpdateScreenVilla(
+                navigateBack = { navController.popBackStack() },
+                onNavigate = {
+                    // Jika diperlukan, jalankan fungsi lain saat navigasi selesai
+                    navController.navigate(DestinasiHomeVilla.route)
                 }
             )
         }

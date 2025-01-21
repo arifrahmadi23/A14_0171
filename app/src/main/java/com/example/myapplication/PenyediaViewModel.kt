@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
+import com.example.myapplication.ui.viewmodel.villa.UpdateViewModelVilla
 
 object PenyediaViewModel{
     val Factory = viewModelFactory {
@@ -23,6 +24,13 @@ object PenyediaViewModel{
             DetailViewModelVilla(
                 savedStateHandle = savedStateHandle,
                 villa = aplikasiVilla().container.villaRepository
+            )
+        }
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            UpdateViewModelVilla(
+                savedStateHandle = savedStateHandle,
+                villaRepository = aplikasiVilla().container.villaRepository
             )
         }
     }

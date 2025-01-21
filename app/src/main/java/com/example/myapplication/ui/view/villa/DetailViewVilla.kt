@@ -13,7 +13,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -57,15 +56,7 @@ fun DetailScreenVilla(
                 navigateUp = navigateBack,
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { onEditClick(viewModel.villaUiState.toString()) },
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit Villa")
-            }
-        },
+
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -86,6 +77,7 @@ fun DetailScreenVilla(
                     ItemDetailVilla(
                         villa = state.villa,
                         onDeleteClick = { villa -> viewModel.deleteVilla(villa.id_villa) },
+                        onEditClick = { villa -> onEditClick(villa.id_villa.toString()) },
                         navigateBack = navigateBack// Handle klik delete
                     )
 
@@ -101,7 +93,10 @@ fun ItemDetailVilla(
     modifier: Modifier = Modifier,
     villa: Villa,
     onDeleteClick: (Villa) -> Unit, // Tambahkan properti onDeleteClick
-    navigateBack: () -> Unit
+    onEditClick: (Villa) -> Unit,
+    navigateBack: () -> Unit,
+
+
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -123,6 +118,15 @@ fun ItemDetailVilla(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Hapus Villa",
                         tint = MaterialTheme.colorScheme.error // Warna merah untuk delete
+                    )
+                }
+                IconButton(onClick = {
+                    onEditClick(villa)
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit Villa",
+                        tint = MaterialTheme.colorScheme.primary // Warna primary untuk edit
                     )
                 }
             }
