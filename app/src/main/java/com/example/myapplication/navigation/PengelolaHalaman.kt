@@ -6,10 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.ui.viewvilla.DestinasiEntryVilla
-import com.example.myapplication.ui.viewvilla.DestinasiHomeVilla
-import com.example.myapplication.ui.viewvilla.EntryVillaScreen
-import com.example.myapplication.ui.viewvilla.HomeScreen
+import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
+import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
+import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
+import com.example.myapplication.ui.view.villa.DetailScreenVilla
+import com.example.myapplication.ui.view.villa.EntryVillaScreen
+import com.example.myapplication.ui.view.villa.HomeScreen
 
 @Composable
 fun PengelolaHalaman(navController: NavHostController = rememberNavController()) {
@@ -20,7 +22,10 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
     ) {
         composable(DestinasiHomeVilla.route){
             HomeScreen(
-                navigateToItemEntry = {navController.navigate((DestinasiEntryVilla.route))}
+                navigateToItemEntry = {navController.navigate((DestinasiEntryVilla.route))},
+                onDetailClick = { idVilla ->
+                    navController.navigate("${DestinasiDetailVilla.route}/$idVilla")
+                }
             )
         }
 
@@ -32,6 +37,17 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                     }
                 }
             })
+        }
+
+        composable(DestinasiDetailVilla.routeWithArg) { backStackEntry ->
+            val IdVilla = backStackEntry.arguments?.getString(DestinasiDetailVilla.IdVilla) ?: ""
+            DetailScreenVilla(
+                navigateBack = { navController.popBackStack() },
+                onEditClick = {
+                    // Navigasi menuju halaman update
+//                    navController.navigate("${DestinasiUpdate.route}/$IdVilla")
+                }
+            )
         }
 
     }
