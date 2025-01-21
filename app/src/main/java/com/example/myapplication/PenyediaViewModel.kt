@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
+import com.example.myapplication.ui.viewmodel.pelanggan.InsertViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
@@ -37,6 +38,9 @@ object PenyediaViewModel{
 
         initializer {
             HomeViewModelPelanggan(aplikasiVilla().container.pelangganRepository)
+        }
+        initializer {
+            InsertViewModelPelanggan(aplikasiVilla().container.pelangganRepository)
         }
     }
 }
