@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.PenyediaViewModel
 import com.example.myapplication.R
+import com.example.myapplication.customwidget.BottomCustomWidget
 import com.example.myapplication.customwidget.CostumeTopAppBar
 import com.example.myapplication.model.Villa
 import com.example.myapplication.navigation.DestinasiNavigasi
@@ -50,6 +51,7 @@ object DestinasiHomeVilla: DestinasiNavigasi {
 @Composable
 fun HomeScreen(
     navigateToItemEntry:()->Unit,
+    navigateToHomePelanggan: () -> Unit,
     modifier: Modifier=Modifier,
     onDetailClick: (String) -> Unit ={},
     viewModel: HomeViewModelVilla = viewModel(factory = PenyediaViewModel.Factory)
@@ -75,6 +77,11 @@ fun HomeScreen(
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Villa")
             }
+        },
+        bottomBar = {
+            BottomCustomWidget(
+                onHomePelangganClick = navigateToHomePelanggan
+            )
         },
     ) { innerPadding->
         HomeStatus(

@@ -49,16 +49,17 @@ import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeVillaUiState
 
 object DestinasiHomePelanggan: DestinasiNavigasi {
-    override val route = "home"
+    override val route = "homePelanggan"
     override val titleRes = "Home Pelanggan"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun HomeScreenPelanggan(
     navigateToItemEntry:()->Unit,
     modifier: Modifier=Modifier,
     onDetailClick: (String) -> Unit ={},
+    navigateBack: () -> Unit,
     viewModel: HomeViewModelPelanggan = viewModel(factory = PenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -69,6 +70,7 @@ fun HomeScreen(
                 title = DestinasiHomePelanggan.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack,
                 onRefresh = {
                     viewModel.getPelanggan()
                 }
