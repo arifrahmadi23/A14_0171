@@ -5,6 +5,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.myapplication.ui.viewmodel.pelanggan.DetailViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.InsertViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
@@ -14,6 +15,8 @@ import com.example.myapplication.ui.viewmodel.villa.UpdateViewModelVilla
 
 object PenyediaViewModel{
     val Factory = viewModelFactory {
+
+        //VILLA
         initializer {
             HomeViewModelVilla(aplikasiVilla().container.villaRepository)
         }
@@ -36,11 +39,20 @@ object PenyediaViewModel{
             )
         }
 
+
+        //PELANGGAN
         initializer {
             HomeViewModelPelanggan(aplikasiVilla().container.pelangganRepository)
         }
         initializer {
             InsertViewModelPelanggan(aplikasiVilla().container.pelangganRepository)
+        }
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            DetailViewModelPelanggan(
+                savedStateHandle = savedStateHandle,
+                pelanggan = aplikasiVilla().container.pelangganRepository
+            )
         }
     }
 }

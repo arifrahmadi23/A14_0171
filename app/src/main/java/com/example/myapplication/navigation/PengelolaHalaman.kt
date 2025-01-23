@@ -6,8 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.view.pelanggan.DestinasiDetailPelanggan
 import com.example.myapplication.ui.view.pelanggan.DestinasiEntryPelanggan
 import com.example.myapplication.ui.view.pelanggan.DestinasiHomePelanggan
+import com.example.myapplication.ui.view.pelanggan.DetailScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.EntryPelangganScreen
 import com.example.myapplication.ui.view.pelanggan.HomeScreenPelanggan
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
@@ -39,12 +41,24 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
             HomeScreenPelanggan(
                 navigateBack = { navController.popBackStack() },
                 navigateToItemEntry = {navController.navigate((DestinasiEntryPelanggan.route))},
-//                onDetailClick = {idPelanggan ->
-//                    navController.navigate("${DestinasiDetailPelanggan.route}/$idPelanggan")
-//                }
+                onDetailClick = {idPelanggan ->
+                    navController.navigate("${DestinasiDetailPelanggan.route}/$idPelanggan")
+                }
 
             )
         }
+
+        composable(DestinasiDetailPelanggan.routeWithArg){ backStackEntry ->
+            val IdPelanggan = backStackEntry.arguments?.getString(DestinasiDetailPelanggan.IdPelanggan) ?: ""
+            DetailScreenPelanggan(
+                navigateBack = { navController.popBackStack() },
+//                onEditClick = {
+//                    // Navigasi menuju halaman update
+//                    navController.navigate("${DestinasiUpdatePelanggan.route}/$IdPelanggan")
+//                }
+            )
+        }
+
         composable(DestinasiEntryPelanggan.route) {
             EntryPelangganScreen(navigateBack = {
                 navController.navigate(DestinasiHomePelanggan.route){
