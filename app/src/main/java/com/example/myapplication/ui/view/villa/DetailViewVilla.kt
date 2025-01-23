@@ -131,16 +131,16 @@ fun ItemDetailVilla(
                 }
             }
             Spacer(modifier = Modifier.padding(8.dp))
-            ComponentDetailMhs(judul = "ID Villa", isinya = villa.id_villa.toString())
-            ComponentDetailMhs(judul = "Nama Villa", isinya = villa.nama_villa)
-            ComponentDetailMhs(judul = "Alamat", isinya = villa.alamat)
-            ComponentDetailMhs(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia)
+            ComponentDetailVilla(judul = "ID Villa", isinya = villa.id_villa.toString())
+            ComponentDetailVilla(judul = "Nama Villa", isinya = villa.nama_villa)
+            ComponentDetailVilla(judul = "Alamat", isinya = villa.alamat)
+            ComponentDetailVilla(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia)
         }
     }
 }
 
 @Composable
-fun ComponentDetailMhs(
+fun ComponentDetailVilla(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String
