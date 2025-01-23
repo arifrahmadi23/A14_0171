@@ -9,9 +9,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.view.pelanggan.DestinasiDetailPelanggan
 import com.example.myapplication.ui.view.pelanggan.DestinasiEntryPelanggan
 import com.example.myapplication.ui.view.pelanggan.DestinasiHomePelanggan
+import com.example.myapplication.ui.view.pelanggan.DestinasiUpdatePelanggan
 import com.example.myapplication.ui.view.pelanggan.DetailScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.EntryPelangganScreen
 import com.example.myapplication.ui.view.pelanggan.HomeScreenPelanggan
+import com.example.myapplication.ui.view.pelanggan.UpdateScreenPelanggan
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
@@ -51,13 +53,25 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         composable(DestinasiDetailPelanggan.routeWithArg){ backStackEntry ->
             val IdPelanggan = backStackEntry.arguments?.getString(DestinasiDetailPelanggan.IdPelanggan) ?: ""
             DetailScreenPelanggan(
-                navigateBack = { navController.popBackStack() },
-//                onEditClick = {
-//                    // Navigasi menuju halaman update
-//                    navController.navigate("${DestinasiUpdatePelanggan.route}/$IdPelanggan")
-//                }
+                navigateBack = { navController.navigate(DestinasiHomePelanggan.route) },
+                onEditClick = {
+                    // Navigasi menuju halaman update
+                    navController.navigate("${DestinasiUpdatePelanggan.route}/$IdPelanggan")
+                }
             )
         }
+
+        composable(DestinasiUpdatePelanggan.routeWithArg) { backStackEntry ->
+            val IdPelanggan = backStackEntry.arguments?.getString(DestinasiUpdatePelanggan.IdPelanggan) ?: ""
+            UpdateScreenPelanggan(
+                navigateBack = { navController.popBackStack() },
+                onNavigate = {
+                    // Jika diperlukan, jalankan fungsi lain saat navigasi selesai
+                    navController.navigate(DestinasiHomePelanggan.route)
+                }
+            )
+        }
+
 
         composable(DestinasiEntryPelanggan.route) {
             EntryPelangganScreen(navigateBack = {

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.myapplication.ui.viewmodel.pelanggan.DetailViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.InsertViewModelPelanggan
+import com.example.myapplication.ui.viewmodel.pelanggan.UpdateViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
@@ -53,6 +54,12 @@ object PenyediaViewModel{
                 savedStateHandle = savedStateHandle,
                 pelanggan = aplikasiVilla().container.pelangganRepository
             )
+        }
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            UpdateViewModelPelanggan(
+                savedStateHandle = savedStateHandle,
+                pelangganRepository = aplikasiVilla().container.pelangganRepository            )
         }
     }
 }
