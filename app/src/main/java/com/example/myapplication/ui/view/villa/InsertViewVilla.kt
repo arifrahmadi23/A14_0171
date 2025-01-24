@@ -128,8 +128,11 @@ fun FormInputVilla(
         )
 
         OutlinedTextField(
-            value = insertUiEvent.kamar_tersedia,
-            onValueChange = {onValueChange(insertUiEvent.copy(kamar_tersedia = it))},
+            value = insertUiEvent.kamar_tersedia.toString(),
+            onValueChange = { newValue ->
+                val kamarTersediaInt = newValue.toIntOrNull() ?: 0 // Validasi dan konversi String ke Int
+                onValueChange(insertUiEvent.copy(kamar_tersedia = kamarTersediaInt))
+            },
             label = { Text("Jumlah Kamar") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,

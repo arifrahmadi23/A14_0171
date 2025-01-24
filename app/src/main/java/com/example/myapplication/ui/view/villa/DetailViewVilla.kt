@@ -134,7 +134,7 @@ fun ItemDetailVilla(
             ComponentDetailVilla(judul = "ID Villa", isinya = villa.id_villa.toString())
             ComponentDetailVilla(judul = "Nama Villa", isinya = villa.nama_villa)
             ComponentDetailVilla(judul = "Alamat", isinya = villa.alamat)
-            ComponentDetailVilla(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia)
+            ComponentDetailVilla(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia.toString())
         }
     }
 }
