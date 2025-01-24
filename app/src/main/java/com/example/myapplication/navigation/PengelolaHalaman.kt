@@ -14,6 +14,8 @@ import com.example.myapplication.ui.view.pelanggan.DetailScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.EntryPelangganScreen
 import com.example.myapplication.ui.view.pelanggan.HomeScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.UpdateScreenPelanggan
+import com.example.myapplication.ui.view.reservasi.DestinasiHomeReservasi
+import com.example.myapplication.ui.view.reservasi.HomeScreenReservasi
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
@@ -34,14 +36,22 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
             HomeScreen(
                 navigateToItemEntry = {navController.navigate((DestinasiEntryVilla.route))},
                 navigateToHomePelanggan = { navController.navigate((DestinasiHomePelanggan.route)) },
+                navigateToHomeReservasi = {navController.navigate((DestinasiHomeReservasi.route))},
                 onDetailClick = { idVilla ->
                     navController.navigate("${DestinasiDetailVilla.route}/$idVilla")
                 }
             )
         }
+
+        composable(DestinasiHomeReservasi.route){
+            HomeScreenReservasi(
+                navigateBack = { navController.navigate(DestinasiHomeVilla.route) },
+            )
+        }
+
         composable(DestinasiHomePelanggan.route){
             HomeScreenPelanggan(
-                navigateBack = { navController.popBackStack() },
+                navigateBack = { navController.navigate(DestinasiHomeVilla.route) },
                 navigateToItemEntry = {navController.navigate((DestinasiEntryPelanggan.route))},
                 onDetailClick = {idPelanggan ->
                     navController.navigate("${DestinasiDetailPelanggan.route}/$idPelanggan")
