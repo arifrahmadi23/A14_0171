@@ -15,11 +15,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.R
 
-
 @Composable
 fun BottomCustomWidget(
     modifier: Modifier = Modifier,
-    onHomePelangganClick: () -> Unit
+    onHomePelangganClick: () -> Unit,
+    onHomeReservasiClick: () -> Unit // Tambahkan parameter untuk tombol Reservasi
 ) {
     Box(
         modifier = modifier
@@ -38,6 +38,15 @@ fun BottomCustomWidget(
                 modifier = Modifier
                     .size(48.dp)
                     .clickable { onHomePelangganClick() }
+            )
+
+            // Ikon untuk navigasi ke HomeReservasi
+            Icon(
+                painter = painterResource(id = R.drawable.ic_reservasi), // Ganti dengan ikon Anda
+                contentDescription = "Home Reservasi",
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable { onHomeReservasiClick() }
             )
         }
     }

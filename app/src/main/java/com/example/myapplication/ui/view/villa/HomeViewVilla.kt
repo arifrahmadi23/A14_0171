@@ -52,6 +52,7 @@ object DestinasiHomeVilla: DestinasiNavigasi {
 fun HomeScreen(
     navigateToItemEntry:()->Unit,
     navigateToHomePelanggan: () -> Unit,
+    navigateToHomeReservasi: () -> Unit,
     modifier: Modifier=Modifier,
     onDetailClick: (String) -> Unit ={},
     viewModel: HomeViewModelVilla = viewModel(factory = PenyediaViewModel.Factory)
@@ -80,7 +81,8 @@ fun HomeScreen(
         },
         bottomBar = {
             BottomCustomWidget(
-                onHomePelangganClick = navigateToHomePelanggan
+                onHomePelangganClick = navigateToHomePelanggan,
+                onHomeReservasiClick = navigateToHomeReservasi
             )
         },
     ) { innerPadding->
