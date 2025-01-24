@@ -8,13 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.Pelanggan
 import com.example.myapplication.repository.PelangganRepository
-import com.example.myapplication.repository.VillaRepository
 import com.example.myapplication.ui.view.pelanggan.DestinasiUpdatePelanggan
-import com.example.myapplication.ui.view.villa.DestinasiUpdateVilla
-import com.example.myapplication.ui.viewmodel.villa.InsertUiEvent
-import com.example.myapplication.ui.viewmodel.villa.InsertUiState
-import com.example.myapplication.ui.viewmodel.villa.toUiStateVillaUpdate
-import com.example.myapplication.ui.viewmodel.villa.toVilla
 import kotlinx.coroutines.launch
 
 class UpdateViewModelPelanggan(
