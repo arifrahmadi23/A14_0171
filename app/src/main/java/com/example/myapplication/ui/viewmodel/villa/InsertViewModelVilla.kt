@@ -32,7 +32,7 @@ data class InsertUiEvent(
     val id_villa: Int = 0,
     val nama_villa: String = "",
     val alamat: String = "",
-    val kamar_tersedia: String = ""
+    val kamar_tersedia: Int = 0
 )
 
 fun InsertUiEvent.toVilla():Villa = Villa (
