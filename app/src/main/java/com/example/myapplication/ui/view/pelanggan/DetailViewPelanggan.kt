@@ -138,9 +138,9 @@ fun ItemDetailPelanggan(
                 }
             }
             Spacer(modifier = Modifier.padding(8.dp))
-            ComponentDetailVilla(judul = "ID Pelanggan", isinya = pelanggan.id_pelanggan.toString())
-            ComponentDetailVilla(judul = "Nama Pelanggan", isinya = pelanggan.nama_pelanggan)
-            ComponentDetailVilla(judul = "Nomor Handphone", isinya = pelanggan.no_hp)
+            ComponentDetailPelanggan(judul = "ID Pelanggan", isinya = pelanggan.id_pelanggan.toString())
+            ComponentDetailPelanggan(judul = "Nama Pelanggan", isinya = pelanggan.nama_pelanggan)
+            ComponentDetailPelanggan(judul = "Nomor Handphone", isinya = pelanggan.no_hp)
         }
     }
 }
