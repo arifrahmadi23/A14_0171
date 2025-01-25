@@ -11,6 +11,9 @@ import com.example.myapplication.ui.viewmodel.pelanggan.InsertViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.UpdateViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.reservasi.DetailViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.HomeViewModelReservasi
+import com.example.myapplication.ui.viewmodel.reservasi.InsertViewModelReservasi
+import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
+//import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.InsertViewModelVilla
@@ -61,13 +64,31 @@ object PenyediaViewModel{
             val savedStateHandle = this.createSavedStateHandle()
             UpdateViewModelPelanggan(
                 savedStateHandle = savedStateHandle,
-                pelangganRepository = aplikasiVilla().container.pelangganRepository            )
+                pelangganRepository = aplikasiVilla().container.pelangganRepository)
         }
 
 
         //RESERVASI
         initializer {
             HomeViewModelReservasi(aplikasiVilla().container.reservasiRepository)
+        }
+
+        initializer {
+            InsertViewModelReservasi(
+                reservasiRepository = aplikasiVilla().container.reservasiRepository,
+                villaRepository = aplikasiVilla().container.villaRepository,
+                pelangganRepository = aplikasiVilla().container.pelangganRepository
+            )
+        }
+
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            UpdateViewModelReservasi(
+                savedStateHandle = savedStateHandle,
+                reservasiRepository = aplikasiVilla().container.reservasiRepository,
+                villaRepository = aplikasiVilla().container.villaRepository,
+                pelangganRepository = aplikasiVilla().container.pelangganRepository
+            )
         }
 
         initializer {
