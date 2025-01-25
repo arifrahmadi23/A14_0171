@@ -36,16 +36,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.PenyediaViewModel
 import com.example.myapplication.R
 import com.example.myapplication.customwidget.CostumeTopAppBar
-import com.example.myapplication.model.Pelanggan
 import com.example.myapplication.model.Reservasi
-import com.example.myapplication.model.Villa
 import com.example.myapplication.navigation.DestinasiNavigasi
-import com.example.myapplication.ui.view.pelanggan.DestinasiHomePelanggan
-import com.example.myapplication.ui.view.pelanggan.HomeStatusPelanggan
-import com.example.myapplication.ui.view.pelanggan.PelangganCard
-import com.example.myapplication.ui.view.pelanggan.PelangganLayout
-import com.example.myapplication.ui.viewmodel.pelanggan.HomePelangganUiState
-import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.reservasi.HomeReservasiUiState
 import com.example.myapplication.ui.viewmodel.reservasi.HomeViewModelReservasi
 
