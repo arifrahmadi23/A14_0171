@@ -44,7 +44,8 @@ fun DetailScreenVilla(
     modifier: Modifier = Modifier,
     viewModel: DetailViewModelVilla = viewModel(factory = PenyediaViewModel.Factory),
     navigateBack: () -> Unit,
-    onEditClick: (String) -> Unit = { }
+    onEditClick: (String) -> Unit = { },
+    onReserveClick: (String) -> Unit
 ) {
     // Scaffold untuk mengatur tampilan atas dan FAB
     Scaffold(
@@ -78,6 +79,10 @@ fun DetailScreenVilla(
                         villa = state.villa,
                         onDeleteClick = { villa -> viewModel.deleteVilla(villa.id_villa) },
                         onEditClick = { villa -> onEditClick(villa.id_villa.toString()) },
+                        onReserveClick = { villa ->
+                            // Navigasi ke InsertViewReservasi menggunakan ID Villa
+                            onReserveClick(villa.id_villa.toString())
+                        },
                         navigateBack = navigateBack// Handle klik delete
                     )
 
@@ -94,6 +99,7 @@ fun ItemDetailVilla(
     villa: Villa,
     onDeleteClick: (Villa) -> Unit, // Tambahkan properti onDeleteClick
     onEditClick: (Villa) -> Unit,
+    onReserveClick: (Villa) -> Unit,
     navigateBack: () -> Unit,
 
 
@@ -135,6 +141,12 @@ fun ItemDetailVilla(
             ComponentDetailVilla(judul = "Nama Villa", isinya = villa.nama_villa)
             ComponentDetailVilla(judul = "Alamat", isinya = villa.alamat)
             ComponentDetailVilla(judul = "Jumlah Kamar Tersedia", isinya = villa.kamar_tersedia.toString())
+        }
+        androidx.compose.material3.Button(
+            onClick = { onReserveClick(villa) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Reservasi Sekarang")
         }
     }
 }
