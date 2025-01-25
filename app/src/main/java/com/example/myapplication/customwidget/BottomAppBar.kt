@@ -19,7 +19,8 @@ import com.example.myapplication.R
 fun BottomCustomWidget(
     modifier: Modifier = Modifier,
     onHomePelangganClick: () -> Unit,
-    onHomeReservasiClick: () -> Unit // Tambahkan parameter untuk tombol Reservasi
+    onHomeReservasiClick: () -> Unit, // Tambahkan parameter untuk tombol Reservasi
+    onHomeReviewClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -47,6 +48,14 @@ fun BottomCustomWidget(
                 modifier = Modifier
                     .size(48.dp)
                     .clickable { onHomeReservasiClick() }
+            )
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_review), // Ganti dengan ikon Anda
+                contentDescription = "Home Review",
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable { onHomeReviewClick() }
             )
         }
     }
