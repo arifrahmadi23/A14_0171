@@ -31,7 +31,7 @@ object DestinasiUpdatePelanggan : DestinasiNavigasi {
 fun UpdateScreenPelanggan(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    onNavigate: () -> Unit,
+
     viewModel: UpdateViewModelPelanggan = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val insertUiStatePelanggan = viewModel.uiState
@@ -62,7 +62,7 @@ fun UpdateScreenPelanggan(
                     // Mengupdate data mahasiswa
                     coroutineScope.launch {
                         viewModel.updatePelanggan()  // Pastikan data diperbarui ke repository
-                        onNavigate()  // Setelah update, navigasi ke halaman lain
+                         // Setelah update, navigasi ke halaman lain
                     }
                 }
             )
