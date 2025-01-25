@@ -1,14 +1,7 @@
 package com.example.myapplication.dependeciesinjection
 
-import com.example.myapplication.repository.NetworkPelangganRepository
-import com.example.myapplication.repository.NetworkVillaRepository
-import com.example.myapplication.repository.NetworkReservasiRepository
-import com.example.myapplication.repository.PelangganRepository
-import com.example.myapplication.repository.VillaRepository
-import com.example.myapplication.repository.ReservasiRepository
-import com.example.myapplication.service.PelangganService
-import com.example.myapplication.service.VillaService
-import com.example.myapplication.service.ReservasiService
+import com.example.myapplication.repository.*
+import com.example.myapplication.service.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,14 +10,16 @@ import retrofit2.Retrofit
 interface AppContainer {
     val villaRepository: VillaRepository
     val pelangganRepository: PelangganRepository
-    val reservasiRepository: ReservasiRepository  // Tambahkan repository untuk reservasi
+    val reservasiRepository: ReservasiRepository
+    val reviewRepository: ReviewRepository  // Tambahkan repository untuk review
 }
 
 class Container : AppContainer {
 
     private val baseUrlVilla = "http://10.0.2.2:3000/api/villa/"
     private val baseUrlPelanggan = "http://10.0.2.2:3000/api/pelanggan/"
-    private val baseUrlReservasi = "http://10.0.2.2:3000/api/reservasi/"  // Base URL untuk reservasi
+    private val baseUrlReservasi = "http://10.0.2.2:3000/api/reservasi/"
+    private val baseUrlReview = "http://10.0.2.2:3000/api/review/"  // Base URL untuk review
     private val json = Json { ignoreUnknownKeys = true }
 
     // Create the Retrofit instance
@@ -44,7 +39,11 @@ class Container : AppContainer {
     }
 
     private val reservasiService: ReservasiService by lazy {
-        retrofit.newBuilder().baseUrl(baseUrlReservasi).build().create(ReservasiService::class.java)  // Service reservasi
+        retrofit.newBuilder().baseUrl(baseUrlReservasi).build().create(ReservasiService::class.java)
+    }
+
+    private val reviewService: ReviewService by lazy {
+        retrofit.newBuilder().baseUrl(baseUrlReview).build().create(ReviewService::class.java)  // Service review
     }
 
     override val villaRepository: VillaRepository by lazy {
@@ -56,6 +55,10 @@ class Container : AppContainer {
     }
 
     override val reservasiRepository: ReservasiRepository by lazy {
-        NetworkReservasiRepository(reservasiService)  // Repository untuk reservasi
+        NetworkReservasiRepository(reservasiService)
+    }
+
+    override val reviewRepository: ReviewRepository by lazy {
+        NetworkReviewRepository(reviewService)  // Repository untuk review
     }
 }
