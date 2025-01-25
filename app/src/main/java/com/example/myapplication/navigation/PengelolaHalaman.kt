@@ -14,7 +14,9 @@ import com.example.myapplication.ui.view.pelanggan.DetailScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.EntryPelangganScreen
 import com.example.myapplication.ui.view.pelanggan.HomeScreenPelanggan
 import com.example.myapplication.ui.view.pelanggan.UpdateScreenPelanggan
+import com.example.myapplication.ui.view.reservasi.DestinasiDetailReservasi
 import com.example.myapplication.ui.view.reservasi.DestinasiHomeReservasi
+import com.example.myapplication.ui.view.reservasi.DetailScreenReservasi
 import com.example.myapplication.ui.view.reservasi.HomeScreenReservasi
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
@@ -46,6 +48,20 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         composable(DestinasiHomeReservasi.route){
             HomeScreenReservasi(
                 navigateBack = { navController.navigate(DestinasiHomeVilla.route) },
+                onDetailClick = {idReservasi ->
+                    navController.navigate("${DestinasiDetailReservasi.route}/$idReservasi")
+                }
+            )
+        }
+
+        composable(DestinasiDetailReservasi.routeWithArg){ backStackEntry ->
+            val IdReservasi = backStackEntry.arguments?.getString(DestinasiDetailReservasi.IdReservasi) ?: ""
+            DetailScreenReservasi(
+                navigateBack = { navController.navigate(DestinasiHomeReservasi.route) },
+//                onEditClick = {
+//                    // Navigasi menuju halaman update
+//                    navController.navigate("${DestinasiUpdateReservasi.route}/$IdReservasi")
+//                }
             )
         }
 

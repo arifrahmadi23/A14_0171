@@ -9,6 +9,7 @@ import com.example.myapplication.ui.viewmodel.pelanggan.DetailViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.HomeViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.InsertViewModelPelanggan
 import com.example.myapplication.ui.viewmodel.pelanggan.UpdateViewModelPelanggan
+import com.example.myapplication.ui.viewmodel.reservasi.DetailViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.HomeViewModelReservasi
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
@@ -67,6 +68,14 @@ object PenyediaViewModel{
         //RESERVASI
         initializer {
             HomeViewModelReservasi(aplikasiVilla().container.reservasiRepository)
+        }
+
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            DetailViewModelReservasi(
+                savedStateHandle = savedStateHandle,
+                reservasi = aplikasiVilla().container.reservasiRepository
+            )
         }
     }
 }
