@@ -24,7 +24,7 @@ interface ReservasiService {
     @GET(".")
     suspend fun getAllReservasi(): AllReservasiResponse
 
-    @GET("{id_pelanggan}")
+    @GET("{id_reservasi}")
     suspend fun getReservasiById(@Path("id_reservasi") id_reservasi: String): ReservasiDetailResponse
 
     @POST("store")
