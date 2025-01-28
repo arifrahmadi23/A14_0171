@@ -26,10 +26,14 @@ import com.example.myapplication.ui.view.reservasi.HomeScreenReservasi
 import com.example.myapplication.ui.view.reservasi.InsertReservasiScreen
 import com.example.myapplication.ui.view.reservasi.UpdateReservasiScreen
 import com.example.myapplication.ui.view.reservasi.UpdateReservasiScreen
+import com.example.myapplication.ui.view.review.DestinasiDetailReview
 import com.example.myapplication.ui.view.review.DestinasiEntryReview
 import com.example.myapplication.ui.view.review.DestinasiHomeReview
+import com.example.myapplication.ui.view.review.DestinasiUpdateReview
+import com.example.myapplication.ui.view.review.DetailScreenReview
 import com.example.myapplication.ui.view.review.HomeScreenReview
 import com.example.myapplication.ui.view.review.InsertReviewScreen
+import com.example.myapplication.ui.view.review.UpdateReviewScreen
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
@@ -171,12 +175,32 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 navigateBack = { navController.navigate(DestinasiHomeVilla.route) },
                 navigateToItemEntry = {navController.navigate((DestinasiEntryReview.route))},
 
-//                onDetailClick = {idReview ->
-//                    navController.navigate("${DestinasiDetailReview.route}/$idReview")
-//                }
+                onDetailClick = {idReview ->
+                    navController.navigate("${DestinasiDetailReview.route}/$idReview")
+                }
 
             )
         }
+
+        composable(DestinasiDetailReview.routeWithArg){ backStackEntry ->
+            val idReview = backStackEntry.arguments?.getString(DestinasiDetailReview.IdReview) ?: ""
+            DetailScreenReview(
+                navigateBack = { navController.navigate(DestinasiHomeReview.route) },
+                onEditClick = {
+                    // Navigasi menuju halaman update
+                    navController.navigate("${DestinasiUpdateReview.route}/$idReview")
+                }
+            )
+        }
+
+        composable(DestinasiUpdateReview.routeWithArg) { backStackEntry ->
+            val IdReview = backStackEntry.arguments?.getString(DestinasiUpdateReview.IdReview) ?: ""
+            UpdateReviewScreen(
+                navigateBack = { navController.navigate(DestinasiHomeReview.route) },
+
+                )
+        }
+
         composable(DestinasiEntryReview.route){
             InsertReviewScreen(
                 navigateBack = {navController.navigate(DestinasiHomeReview.route)},
