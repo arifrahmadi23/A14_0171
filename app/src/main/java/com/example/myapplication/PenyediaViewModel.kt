@@ -14,6 +14,7 @@ import com.example.myapplication.ui.viewmodel.reservasi.HomeViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.InsertViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
 import com.example.myapplication.ui.viewmodel.review.HomeViewModelReview
+import com.example.myapplication.ui.viewmodel.review.InsertViewModelReview
 //import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
@@ -103,6 +104,13 @@ object PenyediaViewModel{
         //REVIEW
         initializer {
             HomeViewModelReview(aplikasiVilla().container.reviewRepository)
+        }
+
+        initializer {
+            InsertViewModelReview(
+                reviewRepository = aplikasiVilla().container.reviewRepository,
+                reservasiRepository = aplikasiVilla().container.reservasiRepository
+            )
         }
     }
 }
