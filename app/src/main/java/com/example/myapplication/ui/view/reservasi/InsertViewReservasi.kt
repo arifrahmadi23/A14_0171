@@ -1,23 +1,32 @@
 package com.example.myapplication.ui.view.reservasi
 
+import android.app.DatePickerDialog
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.PenyediaViewModel
@@ -32,6 +41,7 @@ import com.example.myapplication.ui.viewmodel.reservasi.InsertUiEventReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.InsertUiStateReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.InsertViewModelReservasi
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 object DestinasiEntryReservasi : DestinasiNavigasi {
@@ -112,6 +122,8 @@ fun EntryBodyReservasi(
             modifier = Modifier.fillMaxWidth()
         )
 
+
+
         Button(
             onClick = onSaveClick,
             shape = MaterialTheme.shapes.small,
@@ -131,13 +143,19 @@ fun FormInputReservasi(
     pelangganList: List<Pelanggan>,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
-){
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)){
+) {
+    val context = LocalContext.current
+    val calendar = remember { Calendar.getInstance() } // Optimized with remember
+
+    val checkInDate = remember { mutableStateOf(insertUiEventReservasi.check_in) }
+    val checkOutDate = remember { mutableStateOf(insertUiEventReservasi.check_out) }
+
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         DropdownSelector(
             label = "Pilih Villa",
             items = villaList.map { it.nama_villa },
-            selectedItem = villaList.find { it.id_villa == insertUiEventReservasi.id_villa }?.nama_villa?:"",
-            onItemSelected = {selected ->
+            selectedItem = villaList.find { it.id_villa == insertUiEventReservasi.id_villa }?.nama_villa ?: "",
+            onItemSelected = { selected ->
                 val selectedVilla = villaList.find { it.nama_villa == selected }
                 selectedVilla?.let {
                     onValueChange(insertUiEventReservasi.copy(id_villa = it.id_villa))
@@ -148,8 +166,8 @@ fun FormInputReservasi(
         DropdownSelector(
             label = "Pilih Pelanggan",
             items = pelangganList.map { it.nama_pelanggan },
-            selectedItem = pelangganList.find { it.id_pelanggan == insertUiEventReservasi.id_pelanggan }?.nama_pelanggan?:"",
-            onItemSelected = {selected ->
+            selectedItem = pelangganList.find { it.id_pelanggan == insertUiEventReservasi.id_pelanggan }?.nama_pelanggan ?: "",
+            onItemSelected = { selected ->
                 val selectedPelanggan = pelangganList.find { it.nama_pelanggan == selected }
                 selectedPelanggan?.let {
                     onValueChange(insertUiEventReservasi.copy(id_pelanggan = it.id_pelanggan))
@@ -158,23 +176,63 @@ fun FormInputReservasi(
         )
 
         OutlinedTextField(
-            value = insertUiEventReservasi.check_in,
-            onValueChange = {onValueChange(insertUiEventReservasi.copy(check_in = it))},
-            label = { Text("Tanggal Check in") },
-            modifier = Modifier.fillMaxWidth()
+            value = checkInDate.value,
+            onValueChange = {},
+            label = { Text("Tanggal Check In") },
+            modifier = Modifier.fillMaxWidth(),
+            readOnly = true,
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        DatePickerDialog(
+                            context,
+                            { _, year, month, dayOfMonth ->
+                                val formattedDate = "$year-${month + 1}-$dayOfMonth"
+                                checkInDate.value = formattedDate
+                                onValueChange(insertUiEventReservasi.copy(check_in = formattedDate))
+                            },
+                            calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH)
+                        ).show()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Default.DateRange, contentDescription = "Pilih Tanggal")
+                }
+            }
         )
 
         OutlinedTextField(
-            value = insertUiEventReservasi.check_out,
-            onValueChange = {onValueChange(insertUiEventReservasi.copy(check_out = it))},
-            label = { Text("Tanggal Check out") },
-            modifier = Modifier.fillMaxWidth()
+            value = checkOutDate.value,
+            onValueChange = {},
+            label = { Text("Tanggal Check Out") },
+            modifier = Modifier.fillMaxWidth(),
+            readOnly = true,
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        DatePickerDialog(
+                            context,
+                            { _, year, month, dayOfMonth ->
+                                val formattedDate = "$year-${month + 1}-$dayOfMonth"
+                                checkOutDate.value = formattedDate
+                                onValueChange(insertUiEventReservasi.copy(check_out = formattedDate))
+                            },
+                            calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH)
+                        ).show()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Default.DateRange, contentDescription = "Pilih Tanggal")
+                }
+            }
         )
 
         OutlinedTextField(
             value = insertUiEventReservasi.jumlah_kamar.toString(),
             onValueChange = { newValue ->
-                val jumlahKamarInt = newValue.toIntOrNull() ?: 0 // Validasi dan konversi String ke Int
+                val jumlahKamarInt = newValue.toIntOrNull() ?: 0
                 onValueChange(insertUiEventReservasi.copy(jumlah_kamar = jumlahKamarInt))
             },
             label = { Text("Jumlah Kamar") },
@@ -182,7 +240,5 @@ fun FormInputReservasi(
             enabled = enabled,
             singleLine = true
         )
-
-
     }
 }
