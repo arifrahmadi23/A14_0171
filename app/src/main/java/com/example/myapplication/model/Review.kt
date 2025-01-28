@@ -7,7 +7,8 @@ data class Review(
     val id_review: Int,
     val id_reservasi: Int,
     val nilai: String,
-    val komentar: String
+    val komentar: String,
+    val nama_villa: String
 
 )
 
