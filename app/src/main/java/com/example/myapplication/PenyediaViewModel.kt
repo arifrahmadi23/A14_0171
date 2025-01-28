@@ -13,8 +13,10 @@ import com.example.myapplication.ui.viewmodel.reservasi.DetailViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.HomeViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.InsertViewModelReservasi
 import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
+import com.example.myapplication.ui.viewmodel.review.DetailViewModelReview
 import com.example.myapplication.ui.viewmodel.review.HomeViewModelReview
 import com.example.myapplication.ui.viewmodel.review.InsertViewModelReview
+import com.example.myapplication.ui.viewmodel.review.UpdateViewModelReview
 //import com.example.myapplication.ui.viewmodel.reservasi.UpdateViewModelReservasi
 import com.example.myapplication.ui.viewmodel.villa.DetailViewModelVilla
 import com.example.myapplication.ui.viewmodel.villa.HomeViewModelVilla
@@ -110,6 +112,23 @@ object PenyediaViewModel{
             InsertViewModelReview(
                 reviewRepository = aplikasiVilla().container.reviewRepository,
                 reservasiRepository = aplikasiVilla().container.reservasiRepository
+            )
+        }
+
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            UpdateViewModelReview(
+                savedStateHandle = savedStateHandle,
+                reservasiRepository = aplikasiVilla().container.reservasiRepository,
+                reviewRepository = aplikasiVilla().container.reviewRepository
+            )
+        }
+
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            DetailViewModelReview(
+                savedStateHandle = savedStateHandle,
+                review = aplikasiVilla().container.reviewRepository
             )
         }
     }
