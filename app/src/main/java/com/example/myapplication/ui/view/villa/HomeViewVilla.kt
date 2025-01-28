@@ -102,7 +102,9 @@ fun HomeScreen(
 fun HomeStatus(
     homeVillaUiState: HomeVillaUiState,
     retryAction: () -> Unit,
+
     modifier: Modifier = Modifier,
+
     onDetailClick: (String) -> Unit
 ){
     when (homeVillaUiState){

@@ -2,10 +2,12 @@ package com.example.myapplication.ui.view.review
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -126,15 +128,22 @@ fun FormInputReview(
     reservasiList: List<Reservasi>,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
-){
-    val context = LocalContext.current
-    val nilai = listOf("Sangat Puas", "Puas", "Biasa", "Tidak Puas", "Sangat Tidak Puas")
+) {
+    val scrollState = rememberScrollState()
+    val nilaiOptions = listOf("Sangat Puas", "Puas", "Biasa", "Tidak Puas", "Sangat Tidak Puas")
 
-    Column ( modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)){
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Max) // atau nilai tinggi eksplisit
+            .verticalScroll(scrollState)
+    ) {
+
+        // Dropdown for Reservasi
         DropdownSelector(
             label = "Pilih Reservasi",
             items = reservasiList.map { it.id_reservasi.toString() },
-            selectedItem = reservasiList.find { it.id_reservasi == insertUiEventReview.id_reservasi }?.id_reservasi.toString()?: "",
+            selectedItem = reservasiList.find { it.id_reservasi == insertUiEventReview.id_reservasi }?.id_reservasi.toString() ?: "",
             onItemSelected = { selected ->
                 val selectedReservasi = reservasiList.find { it.id_reservasi.toString() == selected }
                 selectedReservasi?.let {
@@ -142,49 +151,59 @@ fun FormInputReview(
                 }
             }
         )
+
+        // Display Nama Villa (Read-only)
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = insertUiEventReview.nama_villa,
-            onValueChange = {}, // Tidak dapat diubah manual
+            onValueChange = {},
             label = { Text("Nama Villa") },
-            enabled = false // Hanya untuk display
+            enabled = false // Read-only field
         )
-        Text(text = "Nilai")
-        Row(
-            modifier = Modifier.fillMaxSize()
-        ){
-            nilai.forEach { nilai ->
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ){
+
+        // Radio Buttons for Nilai
+        Text(text = "Nilai", style = MaterialTheme.typography.bodyLarge)
+
+        Column(modifier = Modifier.fillMaxWidth()) {
+            nilaiOptions.forEach { option ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(
-                        selected = insertUiEventReview.nilai == nilai,
-                        onClick = {
-                            onValueChange(insertUiEventReview.copy(nilai = nilai))
-                        },
+                        selected = insertUiEventReview.nilai == option,
+                        onClick = { onValueChange(insertUiEventReview.copy(nilai = option)) }
                     )
-                    Text(text = nilai)
+                    Text(
+                        text = option,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
                 }
             }
         }
 
+        // Komentar Input
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = insertUiEventReview.komentar,
-            onValueChange = {onValueChange(insertUiEventReview.copy(komentar = it))},
+            onValueChange = { onValueChange(insertUiEventReview.copy(komentar = it)) },
             label = { Text("Komentar") },
             enabled = enabled
         )
-        if (enabled){
+
+        if (enabled) {
             Text(
-                text = "Isi Semua Data!",
-                modifier = Modifier.padding(12.dp)
+                text = "Pastikan semua data terisi dengan benar!",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
 
         Divider(
-            thickness = 8.dp,
-            modifier = Modifier.padding(12.dp)
+            thickness = 2.dp,
+            modifier = Modifier.padding(vertical = 16.dp)
         )
     }
 }

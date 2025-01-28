@@ -12,6 +12,7 @@ import com.example.myapplication.repository.PelangganRepository
 import com.example.myapplication.repository.ReservasiRepository
 import com.example.myapplication.repository.VillaRepository
 import kotlinx.coroutines.launch
+import java.text.Normalizer.Form
 
 
 class InsertViewModelReservasi(
@@ -53,6 +54,19 @@ class InsertViewModelReservasi(
     fun insertReservasi(){
         viewModelScope.launch {
             try {
+                val villa = listVilla.find { it.id_villa == uiStateReservasi.insertUiEventReservasi.id_villa }
+                val jumlahKamarDipesan = uiStateReservasi.insertUiEventReservasi.jumlah_kamar
+                if (villa == null) {
+                    // Villa tidak ditemukan
+                    println("Villa dengan ID ${uiStateReservasi.insertUiEventReservasi.id_villa} tidak ditemukan.")
+                    return@launch
+                }
+
+                if (villa.kamar_tersedia < jumlahKamarDipesan) {
+                    // Jika kamar yang tersedia kurang dari yang dipesan
+                    println("Tidak ada kamar tersedia. Kamar tersedia: ${villa.kamar_tersedia}, Jumlah dipesan: $jumlahKamarDipesan")
+                    return@launch
+                }
                 reservasiRepository.insertReservasi(uiStateReservasi.insertUiEventReservasi.toReservasi())
             } catch (e: Exception){
                 e.printStackTrace()
@@ -65,7 +79,8 @@ class InsertViewModelReservasi(
 data class InsertUiStateReservasi(
     val insertUiEventReservasi: InsertUiEventReservasi = InsertUiEventReservasi(),
     val namaVillaList: List<Villa> = emptyList(),
-    val namaPelanggan: List<Pelanggan> = emptyList()
+    val namaPelanggan: List<Pelanggan> = emptyList(),
+
 )
 
 
@@ -79,6 +94,8 @@ data class InsertUiEventReservasi(
     val nama_villa: String = "",
     val nama_pelanggan: String = "",
 )
+
+
 
 fun InsertUiEventReservasi.toReservasi():Reservasi = Reservasi (
     id_reservasi = id_reservasi,
