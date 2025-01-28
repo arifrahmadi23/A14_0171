@@ -143,8 +143,8 @@ fun ItemDetailReservasi(
             }
             Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailReservasi(judul = "Nama Pelanggan", isinya = reservasi.nama_pelanggan)
-            ComponentDetailReservasi(judul = "Tanggal Check in", isinya = reservasi.check_in)
-            ComponentDetailReservasi(judul = "Tanggal Check out", isinya = reservasi.check_out)
+            ComponentDetailReservasi(judul = "Tanggal Check in", isinya = reservasi.check_in.substring(0, 10))
+            ComponentDetailReservasi(judul = "Tanggal Check out", isinya = reservasi.check_out.substring(0, 10))
             ComponentDetailReservasi(judul = "Jumlah Kamar dipesan", isinya = reservasi.jumlah_kamar.toString())
 
         }
