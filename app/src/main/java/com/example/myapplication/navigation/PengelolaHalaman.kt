@@ -26,8 +26,10 @@ import com.example.myapplication.ui.view.reservasi.HomeScreenReservasi
 import com.example.myapplication.ui.view.reservasi.InsertReservasiScreen
 import com.example.myapplication.ui.view.reservasi.UpdateReservasiScreen
 import com.example.myapplication.ui.view.reservasi.UpdateReservasiScreen
+import com.example.myapplication.ui.view.review.DestinasiEntryReview
 import com.example.myapplication.ui.view.review.DestinasiHomeReview
 import com.example.myapplication.ui.view.review.HomeScreenReview
+import com.example.myapplication.ui.view.review.InsertReviewScreen
 import com.example.myapplication.ui.view.villa.DestinasiDetailVilla
 import com.example.myapplication.ui.view.villa.DestinasiEntryVilla
 import com.example.myapplication.ui.view.villa.DestinasiHomeVilla
@@ -167,10 +169,17 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         composable(DestinasiHomeReview.route){
             HomeScreenReview(
                 navigateBack = { navController.navigate(DestinasiHomeVilla.route) },
+                navigateToItemEntry = {navController.navigate((DestinasiEntryReview.route))},
 
 //                onDetailClick = {idReview ->
 //                    navController.navigate("${DestinasiDetailReview.route}/$idReview")
 //                }
+
+            )
+        }
+        composable(DestinasiEntryReview.route){
+            InsertReviewScreen(
+                navigateBack = {navController.navigate(DestinasiHomeReview.route)},
 
             )
         }
